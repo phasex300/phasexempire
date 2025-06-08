@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Terminal Tycoon</title>
+<style>
+  body {
+    background-color: #0d0d0d;
+    color: #00ff88;
+    font-family: monospace;
+    margin: 0; padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+  }
+  #terminal, #ads, #hud, #controls {
+    border: 2px solid #00ff88;
+    padding: 10px;
+    margin: 10px auto;
+    background: #111;
+    max-width: 800px;
+    width: 90%;
+  }
+  #terminal {
+    height: 300px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+  }
+  button {
+    background: #00ff88;
+    color: #000;
+    border: none;
+    padding: 10px;
+    margin: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+  <h1>Terminal Tycoon</h1>
+  <div id="hud">Money: $0</div>
+  <div id="terminal">Initializing Terminal Tycoon...</div>
+  <div id="controls"></div>
+  <div id="ads">Loading ads...</div>
+  <a href="https://link.trustwallet.com/send?coin=10001101&address=0x1d0BbF521B403523c923329a2Ba99f0d15DB1294&token_id=0x1E4a5963aBFD975d8c9021ce480b42188849D41d" target="_blank" style="margin: 10px auto; color: #00ff88;">💰 Support Developer</a>
+<script>
+let money = 0;
+const terminal = document.getElementById("terminal");
+const hud = document.getElementById("hud");
+const ads = document.getElementById("ads");
+const controls = document.getElementById("controls");
+
+function log(msg) {
+  terminal.textContent += "\n> " + msg;
+  terminal.scrollTop = terminal.scrollHeight;
+  hud.textContent = "Money: $" + money;
+}
+
+function writeCode() {
+  money += 1;
+  log("You wrote code and earned $1.");
+}
+
+const btn = document.createElement("button");
+btn.innerText = "Write Code";
+btn.onclick = writeCode;
+controls.appendChild(btn);
+
+const fakeAds = [
+  "🌐 DarkVault: Boost your GPU 300%! Totally safe.",
+  "📡 PhantomMail: The untraceable inbox.",
+  "🤖 BotNet.io: Rent 1000 bots today!",
+  "🔒 HackNet VPN: Secure. Anonymous. Illegal?"
+];
+
+function showAd() {
+  const ad = fakeAds[Math.floor(Math.random() * fakeAds.length)];
+  ads.innerHTML = `<span onclick="log('You clicked a fake ad: ${ad}')">${ad}</span>`;
+}
+setInterval(showAd, 10000);
+showAd();
+</script>
+</body>
+</html>
